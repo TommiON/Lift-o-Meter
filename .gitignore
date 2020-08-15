@@ -2,3 +2,5 @@
 */node_modules
 *.iml
 backend/.idea
+*/.DS_Store
+.DS_Store
