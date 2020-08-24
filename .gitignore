@@ -6,4 +6,4 @@ backend/.idea
 .DS_Store
 */.idea
 back/.idea
-back/mvnv*
+back/mvnw*

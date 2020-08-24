@@ -3,6 +3,7 @@ import './App.css'
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom"
 import Workout from './components/Workout'
 import Timer from './components/Timer'
+import Userlist from './components/Userlist'
 
 function App() {
   
@@ -31,12 +32,11 @@ function App() {
           <p>Käppyröitä</p>
         </Route>
         <Route path="/users">
-          <p>Käyttäjätietoja, tarvitaanko?</p>
+          <Userlist />
         </Route>
       </Switch>
     </BrowserRouter>
 
-    <Timer startTime={180} headsUpTime={90} />
     </div>
   )
 }
