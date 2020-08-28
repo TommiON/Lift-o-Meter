@@ -11,4 +11,14 @@ const getOne = async (userId) => {
     return response.data
 }
 
-export default { getAll, getOne }
+const postNew = async (userdata) => {
+    const response = await axios.post(`${baseURL}/users`, userdata)
+    return response
+}
+
+const deleteOne = async (userId) => {
+    const response = await axios.delete(`${baseURL}/users/${userId}`)
+    return response
+}
+
+export default { getAll, getOne, postNew, deleteOne }

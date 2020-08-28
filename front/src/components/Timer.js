@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const Timer = ({startTime, headsUpTime}) => {
     const [clock, setClock] = useState(startTime)
-    
-    setTimeout(() => setClock(clock - 1), 1000)
 
+    useEffect(
+        () => {
+            let timer = setTimeout(() => setClock(clock - 1), 1000)
+            return () => {clearTimeout(timer)}
+        }
+    )
+    
     const getSeconds = rawTime => {
         let seconds = rawTime % 60
         if (seconds < 10) {

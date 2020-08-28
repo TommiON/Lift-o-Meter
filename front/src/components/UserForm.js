@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import { Button, Input} from '../styles/styles'
 
-const UserForm = () => {
+const UserForm = ( {additionHandler} ) => {
 
     const [userdata, setUserdata] = useState({
         name: '',
@@ -10,15 +11,18 @@ const UserForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('Lisää käyttäjä -nappia painettu: ', event)
+        additionHandler(userdata)
+        setUserdata({
+            name: '',
+            admin: false,
+            age: ''
+        })
     }
 
     const handleChange = (event) => {
         event.preventDefault()
         const field = event.target.name
-        console.log('kentän nimi: ', field)
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value
-        console.log('arvo: ', value)
         setUserdata({
             ...userdata, [field]:value
         })
@@ -27,14 +31,11 @@ const UserForm = () => {
     return(
         <div>
             <h3>Lisää uusi käyttäjä</h3>
-            {console.log('tilan name: ', userdata.name)}
-            {console.log('tilan admin: ', userdata.admin)}
-            {console.log('tilan age: ', userdata.age)}
             <form onSubmit={handleSubmit}>
-                <input type="textfield" name="name" value={userdata.name} onChange={handleChange} /><br></br>
-                <input type="checkbox" name="admin" checked={userdata.admin ? userdata.admin : false} value={userdata.admin} onChange={handleChange} /><br></br>
-                <input type="textfield" name="age" value={userdata.age} onChange={handleChange} /><br></br>
-                <button type="submit">Lisää</button>
+                <Input type="textfield" name="name" value={userdata.name} onChange={handleChange} /><br></br>
+                <Input type="checkbox" name="admin" checked={userdata.admin ? userdata.admin : false} value={userdata.admin} onChange={handleChange} /><br></br>
+                <Input type="textfield" name="age" value={userdata.age} onChange={handleChange} /><br></br>
+                <Button type="submit">Lisää</Button>
             </form>
         </div>
     )

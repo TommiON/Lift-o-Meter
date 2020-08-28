@@ -2,8 +2,8 @@ import React from 'react'
 import './App.css'
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom"
 import Workout from './components/Workout'
-import Timer from './components/Timer'
 import Userlist from './components/Userlist'
+import { Page, Navigation } from './styles/styles'
 
 function App() {
   
@@ -12,14 +12,14 @@ function App() {
   }
 
   return (
-    <div>
+    <Page>
     <BrowserRouter>
-      <div>
+      <Navigation>
         <Link to="/workouts/:id" style={temporaryStyle}>Vuorossa</Link>
         <Link to="/workouts" style={temporaryStyle}>Aiemmat treenit</Link>
         <Link to="/statistics" style={temporaryStyle}>Tilastoja</Link>
         <Link to="/users" style={temporaryStyle}>Käyttäjähallinta</Link>
-      </div>
+      </Navigation>
 
       <Switch>
         <Route path="/workouts/:id">
@@ -37,7 +37,7 @@ function App() {
       </Switch>
     </BrowserRouter>
 
-    </div>
+    </Page>
   )
 }
 

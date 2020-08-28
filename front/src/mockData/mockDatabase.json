@@ -1,22 +1,17 @@
 {
-    "users": [
-      {
-        "id": 1,
-        "name": "Tommi",
-        "admin": true
-      },
-      {
-        "id": 6541957769329891,
-        "name": "Hanna",
-        "admin": false
-      },
-      {
-        "id": 3,
-        "name": "Natalia",
-        "admin": true
-      }
-    ],
-    "cycles": [
-      
-    ]
-  }
+  "users": [
+    {
+      "name": "Tommi",
+      "admin": true,
+      "age": "25",
+      "id": 1
+    },
+    {
+      "name": "Hanna",
+      "admin": false,
+      "age": "40",
+      "id": 2
+    }
+  ],
+  "cycles": []
+}
