@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '../styles/styles'
+import { StandardButton } from '../styles/Buttons'
 
 const User = ( {userdata, handleDelete} ) => {
 
@@ -8,7 +8,7 @@ const User = ( {userdata, handleDelete} ) => {
             <p>
                 {userdata.name}
                 {userdata.admin? <i>(ylläpitäjä)</i> : <i></i>}
-                <Button tiny onClick={handleDelete}>poista</Button>
+                <StandardButton onClick={handleDelete}>poista</StandardButton>
             </p>
         </div>
     )

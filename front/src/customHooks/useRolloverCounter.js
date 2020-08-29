@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
-const useRolloverCounter = (initialValue) => {
-    const [counter, setCounter] = useState(initialValue = 5)
+const useRolloverCounter = (maxValue) => {
+    const [value, setValue] = useState('?')
 
     const decrease = () => {
-        if (counter == 0) {
-            setCounter(initialValue)
+        if (value === '?' || value === 0) {
+            setValue(maxValue)
         } else {
-            setCounter(counter - 1)
+            setValue(value - 1)
         }
     }
 
-    return { counter, decrease }
+    return { value, decrease }
 }
 
 export default useRolloverCounter

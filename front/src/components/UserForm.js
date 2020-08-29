@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { StandardButton } from '../styles/Buttons'
 import { Button, Input} from '../styles/styles'
 
 const UserForm = ( {additionHandler} ) => {
@@ -35,7 +36,7 @@ const UserForm = ( {additionHandler} ) => {
                 <Input type="textfield" name="name" value={userdata.name} onChange={handleChange} /><br></br>
                 <Input type="checkbox" name="admin" checked={userdata.admin ? userdata.admin : false} value={userdata.admin} onChange={handleChange} /><br></br>
                 <Input type="textfield" name="age" value={userdata.age} onChange={handleChange} /><br></br>
-                <Button type="submit">Lisää</Button>
+                <StandardButton type="submit">Lisää</StandardButton>
             </form>
         </div>
     )

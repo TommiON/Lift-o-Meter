@@ -11,7 +11,34 @@
       "admin": false,
       "age": "40",
       "id": 2
+    },
+    {
+      "name": "Natalia",
+      "admin": true,
+      "age": "12",
+      "id": 3
     }
   ],
-  "cycles": []
+  "cycles": [],
+  "workouts": [],
+  "movesets": [
+    {
+      "label": "penkki",
+      "id": 1
+    },
+    {
+      "label": "penkki",
+      "reps": 5,
+      "id": 3
+    },
+    {
+      "label": "mave",
+      "reps": 5,
+      "id": 5
+    },
+    {
+      "label": "mave",
+      "id": 6
+    }
+  ]
 }
