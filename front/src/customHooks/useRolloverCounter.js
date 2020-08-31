@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 const useRolloverCounter = (maxValue) => {
-    const [value, setValue] = useState('?')
-
+    const [value, setValue] = useState(maxValue)
+   
     const decrease = () => {
         if (value === '?' || value === 0) {
             setValue(maxValue)
