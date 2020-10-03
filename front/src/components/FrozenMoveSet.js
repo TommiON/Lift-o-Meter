@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { MoveSetButton } from '../styles/Buttons'
 import moveSetService from '../services/MoveSetService'
 
-const ArchivedMoveSet = ( {id} ) => {
+const FrozenMoveSet = ( {id} ) => {
 
     // state on kyllä tälle komponentille overkill...
     const [data, setData] = useState({})
@@ -22,4 +22,4 @@ const ArchivedMoveSet = ( {id} ) => {
     )
 }
 
-export default ArchivedMoveSet
+export default FrozenMoveSet

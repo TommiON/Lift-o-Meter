@@ -20,16 +20,27 @@
     }
   ],
   "cycles": [],
-  "workouts": [],
+  "workouts": [
+    {
+      "type": "A",
+      "date": "2020-10-03T20:11:41.241Z",
+      "setIds": [
+        100,
+        101,
+        102,
+        103,
+        104
+      ],
+      "id": 1
+    }
+  ],
   "movesets": [
     {
-      "label": "penkki",
       "id": 1,
       "repetitions": 5
     },
     {
-      "id": 2,
-      "repetitions": 3
+      "id": 2
     },
     {
       "label": "mave",

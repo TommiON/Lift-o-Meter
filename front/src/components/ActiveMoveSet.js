@@ -6,11 +6,7 @@ import moveSetService from '../services/MoveSetService'
 const ActiveMoveSet = ( {id} ) => {
     const counter = useRolloverCounter(5)
     
-    const [data, setData] = useState({
-        'id': undefined,
-        'label': undefined,
-        'repetitions': undefined
-    })
+    const [data, setData] = useState({})
 
     useEffect(() => {
         moveSetService
