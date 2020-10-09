@@ -10,8 +10,8 @@ const start = async (data) => {
         "setIds": [100, 101, 102, 103, 104]
     }
     
-    const response = await axios.post(`${baseURL}`, workout)
-    return response
+    // const response = await axios.post(`${baseURL}`, workout)
+    // return response
 }
 
 export default { start }

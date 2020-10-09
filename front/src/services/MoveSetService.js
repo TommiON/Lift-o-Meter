@@ -12,6 +12,7 @@ const getAll = async () => {
 
 const getOne = async (id) => {
     const response = await axios.get(`${baseURL}/${id}`)
+    console.log('*TIETOKANTAPALVELU, getOne', id, response)
     return response.data 
 }
 
@@ -21,7 +22,7 @@ const postNew = async (data) => {
 }
 
 const putChanged = async (id, data) => {
-    console.log('* put-metodissa, id ', id, 'ja data: ', data)
+    console.log('** puttiin tulee', data)
     const response = await axios.put(`${baseURL}/${id}`, data)
     return response
 }

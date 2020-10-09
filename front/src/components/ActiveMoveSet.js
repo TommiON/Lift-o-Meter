@@ -3,10 +3,10 @@ import useRolloverCounter from '../customHooks/useRolloverCounter'
 import { MoveSetButton } from '../styles/Buttons'
 import moveSetService from '../services/MoveSetService'
 
-const ActiveMoveSet = ( {id} ) => {
-    const counter = useRolloverCounter(5)
-    
+const ActiveMoveSet = ( {id} ) => {    
     const [data, setData] = useState({})
+    let counter = data.repetitions
+    // const counter = useRolloverCounter(data.repetitions)
 
     useEffect(() => {
         moveSetService
@@ -16,7 +16,8 @@ const ActiveMoveSet = ( {id} ) => {
     }, [])
 
     useEffect(() => {
-        console.log('toistot muuttuneet, nyt: ', data.repetitions)
+        console.log('useEffect laukeaa')
+        const updatedData = {...data, repetitions: data.repetitions}
         moveSetService
             .putChanged(id, data)
             .then(response => console.log('kantaan kirjoitettu, vastaus: ', response))
@@ -24,14 +25,20 @@ const ActiveMoveSet = ( {id} ) => {
     }, [data.repetitions])
 
     const handleClick = () => {
-        counter.decrease()
-        setData({ ...data, repetitions: counter.value })
+        if (counter == null || counter == undefined || counter == 0) {
+            counter = 5
+        } else {
+            counter -= 1
+        }
+        setData({...data, repetitions: counter})
     }
 
     return(
         <div>
+            {console.log('*STATE:', data)}
+            {console.log('*COUNTER:', counter)}
             {data.label}
-            {data.repetitions === undefined ?
+            {data.repetitions === null ?
                 <MoveSetButton emptySet onClick={handleClick}>{data.repetitions}</MoveSetButton>
                 :
                 data.repetitions === 5 ?
@@ -44,20 +51,3 @@ const ActiveMoveSet = ( {id} ) => {
 }
 
 export default ActiveMoveSet
-
-/**
- {data.reps === undefined
-            ?
-                counter.value === '?'
-                ?
-                    <MoveSetButton emptySet onClick={handleClick}>{counter.value}</MoveSetButton>
-                :
-                    counter.value === 5
-                    ?
-                        <MoveSetButton fullSet onClick={handleClick}>{counter.value}</MoveSetButton>
-                    :
-                        <MoveSetButton partialSet onClick={handleClick}>{counter.value}</MoveSetButton>           
-            :
-            <MoveSetButton passiveSet>{data.reps}</MoveSetButton>
-            }
- */

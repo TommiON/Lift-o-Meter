@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom"
 import Workout from './components/Workout'
 import Userlist from './components/Userlist'
 import { Page, Navigation } from './styles/styles'
+import { StandardButton } from './styles/Buttons'
 
 function App() {
   
@@ -36,6 +37,9 @@ function App() {
         </Route>
       </Switch>
     </BrowserRouter>
+
+    <StandardButton>Aloita treeni</StandardButton>
+
 
     </Page>
   )
