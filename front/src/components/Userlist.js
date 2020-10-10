@@ -31,6 +31,17 @@ const Userlist = () => {
             {users.map(user => <User key={user.id} userdata={user} handleDelete={() => deleteUser(user.id)} />)}
         </div>
     )
+    
 }
 
 export default Userlist
+
+/*
+return(
+        <div>
+            <UserForm additionHandler={addUser} />
+            <h3>Käyttäjät</h3>
+            {users.map(user => <User key={user.id} userdata={user} handleDelete={() => deleteUser(user.id)} />)}
+        </div>
+    )
+    */

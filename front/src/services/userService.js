@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3001/users'
+// huom. tämä muutettu viittaamaan backendiin, muita palveluita ei vielä
+const baseURL = 'http://localhost:8080/users'
 
 const getAll = async () => {
     const response = await axios.get(`${baseURL}`)
@@ -18,6 +19,7 @@ const postNew = async (data) => {
 }
 
 const deleteOne = async (id) => {
+    console.log('deleteOne...')
     const response = await axios.delete(`${baseURL}/${id}`)
     return response
 }
