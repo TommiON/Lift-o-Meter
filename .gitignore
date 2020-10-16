@@ -7,3 +7,6 @@ backend/.idea
 */.idea
 back/.idea
 back/mvnw*
+database
+rest_test
+database/*
