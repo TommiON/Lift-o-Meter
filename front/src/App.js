@@ -3,6 +3,7 @@ import './App.css'
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom"
 import Workout from './components/Workout'
 import Userlist from './components/Userlist'
+import UserAdder from './components/UserAdder'
 import { Page, Navigation } from './styles/styles'
 import { StandardButton } from './styles/Buttons'
 
@@ -16,6 +17,7 @@ function App() {
     <Page>
     <BrowserRouter>
       <Navigation>
+        <Link to="/signup" style={temporaryStyle}>Rekisteröidy</Link>
         <Link to="/workouts/:id" style={temporaryStyle}>Vuorossa</Link>
         <Link to="/workouts" style={temporaryStyle}>Aiemmat treenit</Link>
         <Link to="/statistics" style={temporaryStyle}>Tilastoja</Link>
@@ -23,6 +25,9 @@ function App() {
       </Navigation>
 
       <Switch>
+        <Route path="/signup">
+          <UserAdder />
+        </Route>
         <Route path="/workouts/:id">
           <Workout />
         </Route>

@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-// huom. tämä muutettu viittaamaan backendiin, muita palveluita ei vielä
 const baseURL = 'http://localhost:8080/users'
 
 const getAll = async () => {

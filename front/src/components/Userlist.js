@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import userService from '../services/UserService'
 import User from './User'
-import UserForm from './UserForm'
 
 const Userlist = () => {
     const [users, setUsers] = useState([])
@@ -26,7 +25,6 @@ const Userlist = () => {
 
     return(
         <div>
-            <UserForm additionHandler={addUser} />
             <h3>Käyttäjät</h3>
             {users.map(user => <User key={user.id} userdata={user} handleDelete={() => deleteUser(user.id)} />)}
         </div>
@@ -35,13 +33,3 @@ const Userlist = () => {
 }
 
 export default Userlist
-
-/*
-return(
-        <div>
-            <UserForm additionHandler={addUser} />
-            <h3>Käyttäjät</h3>
-            {users.map(user => <User key={user.id} userdata={user} handleDelete={() => deleteUser(user.id)} />)}
-        </div>
-    )
-    */
