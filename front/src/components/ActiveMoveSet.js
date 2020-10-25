@@ -25,7 +25,7 @@ const ActiveMoveSet = ( {id} ) => {
     }, [data.repetitions])
 
     const handleClick = () => {
-        if (counter == null || counter == undefined || counter == 0) {
+        if (counter === null || counter === undefined || counter === 0) {
             counter = 5
         } else {
             counter -= 1

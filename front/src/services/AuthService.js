@@ -8,7 +8,6 @@ const login = async credentials => {
 }
 
 const signup = async userData => {
-    console.log('** signup:', userData)
     const response = await axios.post(`${baseURL}/signup`, userData)
     return response
 }

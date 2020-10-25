@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom"
 import Workout from './components/Workout'
@@ -6,11 +6,40 @@ import Userlist from './components/Userlist'
 import UserAdder from './components/UserAdder'
 import { Page, Navigation } from './styles/styles'
 import { StandardButton } from './styles/Buttons'
+import LoginScreen from './components/LoginScreen'
+import AuthService from './services/AuthService'
+import GenerateTokenizedHeader from './services/GenerateTokenizedHeader'
 
 function App() {
   
   const temporaryStyle = {
     padding: 5
+  }
+
+  const [loggedUser, setLoggedUser] = useState(null)
+
+  useEffect(() => {
+    const username = window.localStorage.getItem('username')
+    if (username) {
+      setLoggedUser(username)
+    }
+  }, [])
+
+  const showLogin = () => ( <LoginScreen loginFunction={login} /> )
+
+  const login = (userdata) => {
+    AuthService
+            .login(userdata)
+            .then(response => {
+                window.localStorage.setItem('username', response.data.username)
+                window.localStorage.setItem('accessToken', response.data.accessToken)
+                setLoggedUser(response.data.username)
+            })
+  }
+
+  const logout = () => {
+    window.localStorage.removeItem('username')
+    window.localStorage.removeItem('accessToken')
   }
 
   return (
@@ -22,6 +51,7 @@ function App() {
         <Link to="/workouts" style={temporaryStyle}>Aiemmat treenit</Link>
         <Link to="/statistics" style={temporaryStyle}>Tilastoja</Link>
         <Link to="/users" style={temporaryStyle}>Käyttäjähallinta</Link>
+        {loggedUser !== null ? <span><b>{loggedUser}</b> kirjautunut. <a href="" onClick={logout}>Kirjaudu ulos</a></span> : <div></div> }
       </Navigation>
 
       <Switch>
@@ -43,11 +73,19 @@ function App() {
       </Switch>
     </BrowserRouter>
 
-    <StandardButton>Aloita treeni</StandardButton>
+    {loggedUser === null && showLogin()}
 
-
+    {console.log('Tokenoitu header: ', GenerateTokenizedHeader())}
+  
     </Page>
   )
 }
 
 export default App;
+
+/*
+const showLogin = () => ( <LoginScreen /> )
+  const showLogout = () => ( <LogoutScreen /> )
+{loggedUser === null && showLogin()}
+{loggedUser !== null && showLogout()}
+*/

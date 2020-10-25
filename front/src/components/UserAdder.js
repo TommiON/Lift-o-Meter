@@ -20,8 +20,6 @@ const UserAdder = () => {
     
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('USERDATA', userdata)
-        console.log(typeof(userdata.height))
         AuthService
             .signup(userdata)
             .then(response => console.log(response))
@@ -43,9 +41,7 @@ const UserAdder = () => {
         event.preventDefault()
         const field = event.target.name
         let value = null
-        if(field === 'age') {
-            value = parseInt(event.target.value, 10)
-        } else if(field === 'username' || field === 'password') {
+        if(field === 'username' || field === 'password') {
             value = event.target.value
         } else {
             value = parseFloat(event.target.value)
@@ -70,19 +66,7 @@ const UserAdder = () => {
                             <td><Input type="password" name="password" value={userdata.password} onChange={handleChange} /></td>
                         </tr>
                         <hr></hr>
-                        <tr>
-                            <td>Ikä:</td>
-                            <td><Input type="textfield" name="age" value={userdata.age} onChange={handleChange} /></td>
-                        </tr>
-                        <tr>
-                            <td>Paino (kg):</td>
-                            <td><Input type="textfield" name="weight" value={userdata.weight} onChange={handleChange} /></td>
-                        </tr>
-                        <tr>
-                            <td>Pituus (cm):</td>
-                            <td><Input type="textfield" name="height" value={userdata.height} onChange={handleChange} /></td>
-                        </tr>
-                        <hr></hr>
+                        Lisäksi tarvitaan maksimituloksesi seuraavissa klassisissa voimailuliikkeissä - siis kuinka suuren kuorman pystyt tai uskot pystyväsi nostamaan seuraavissa liikkeissä <i>yhden kerran</i>.
                         <tr>
                             <td>Kyykyn maksimi (kg):</td>
                             <td><Input type="textfield" name="bestSquat" value={userdata.bestSquat} onChange={handleChange} /></td>

@@ -1,9 +1,12 @@
 import axios from 'axios'
+import GenerateTokenizedHeader from './GenerateTokenizedHeader'
 
 const baseURL = 'http://localhost:8080/users'
+const config = GenerateTokenizedHeader()
 
 const getAll = async () => {
-    const response = await axios.get(`${baseURL}`)
+    const response = await axios.get(`${baseURL}`, config)
+    console.log(response)
     return response.data
 }
 
