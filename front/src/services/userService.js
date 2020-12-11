@@ -1,12 +1,16 @@
 import axios from 'axios'
 import GenerateTokenizedHeader from './GenerateTokenizedHeader'
 
-const baseURL = 'http://localhost:8080/users'
+const baseURL = 'http://localhost:8080/api/users'
 const config = GenerateTokenizedHeader()
 
 const getAll = async () => {
-    const response = await axios.get(`${baseURL}`, config)
-    console.log(response)
+    const response = await axios.get(`${baseURL}/all`, config)
+    return response.data
+}
+
+const getCurrent = async () => {
+    const response = await axios.get(`${baseURL}/current_user`, config)
     return response.data
 }
 
@@ -26,4 +30,4 @@ const deleteOne = async (id) => {
     return response
 }
 
-export default { getAll, getOne, postNew, deleteOne }
+export default { getAll, getOne, getCurrent, postNew, deleteOne }

@@ -7,6 +7,7 @@ import UserAdder from './components/UserAdder'
 import { Page, Navigation } from './styles/styles'
 import { StandardButton } from './styles/Buttons'
 import LoginScreen from './components/LoginScreen'
+import AccountDetails from './components/AccountDetails'
 import AuthService from './services/AuthService'
 import GenerateTokenizedHeader from './services/GenerateTokenizedHeader'
 
@@ -50,8 +51,10 @@ function App() {
         <Link to="/workouts/:id" style={temporaryStyle}>Vuorossa</Link>
         <Link to="/workouts" style={temporaryStyle}>Aiemmat treenit</Link>
         <Link to="/statistics" style={temporaryStyle}>Tilastoja</Link>
-        <Link to="/users" style={temporaryStyle}>Käyttäjähallinta</Link>
+        <Link to="/users" style={temporaryStyle}>Käyttäjät</Link>
+        |
         {loggedUser !== null ? <span><b>{loggedUser}</b> kirjautunut. <a href="" onClick={logout}>Kirjaudu ulos</a></span> : <div></div> }
+        {loggedUser !== null ? <Link to="/profile" style={temporaryStyle}>Oma profiili</Link> : <div></div>}
       </Navigation>
 
       <Switch>
@@ -69,6 +72,9 @@ function App() {
         </Route>
         <Route path="/users">
           <Userlist />
+        </Route>
+        <Route path="/profile">
+          <AccountDetails />
         </Route>
       </Switch>
     </BrowserRouter>

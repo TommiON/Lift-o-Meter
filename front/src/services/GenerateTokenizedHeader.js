@@ -2,7 +2,7 @@ const GenerateTokenizedHeader = () => {
     const accessToken = window.localStorage.getItem('accessToken')
     let config = null
     if(accessToken) {
-        const headerLine = 'bearer '.concat(accessToken)
+        const headerLine = 'Bearer '.concat(accessToken)
         config = {
             headers: { Authorization: headerLine }
         }

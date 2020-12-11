@@ -26,6 +26,7 @@ const Userlist = () => {
     return(
         <div>
             <h3>Käyttäjät</h3>
+            {console.log('käyttäjät: ', users)}
             {users.map(user => <User key={user.id} userdata={user} handleDelete={() => deleteUser(user.id)} />)}
         </div>
     )
