@@ -9,6 +9,7 @@ const Userlist = () => {
         userService
             .getAll()
             .then(response => setUsers(response))
+            .catch(error => console.log('virhe: ', error))
     }, [])
 
     const deleteUser = (id) => {

@@ -23,6 +23,7 @@ const UserAdder = () => {
         AuthService
             .signup(userdata)
             .then(response => console.log(response))
+            .catch(error => console.log('**Virhe: ', error))
         setUserdata({
             username: '',
             password: '',
