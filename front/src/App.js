@@ -50,7 +50,6 @@ function App() {
         <Link to="/signup" style={temporaryStyle}>Rekisteröidy</Link>
         <Link to="/workouts/:id" style={temporaryStyle}>Vuorossa</Link>
         <Link to="/workouts" style={temporaryStyle}>Aiemmat treenit</Link>
-        <Link to="/statistics" style={temporaryStyle}>Tilastoja</Link>
         <Link to="/users" style={temporaryStyle}>Käyttäjät</Link>
         |
         {loggedUser !== null ? <span><b>{loggedUser}</b> kirjautunut. <a href="" onClick={logout}>Kirjaudu ulos</a></span> : <div></div> }
@@ -66,9 +65,6 @@ function App() {
         </Route>
         <Route path="/workouts">
           <p>Aiemmat treenit</p>
-        </Route>
-        <Route path="/statistics">
-          <p>Käppyröitä</p>
         </Route>
         <Route path="/users">
           <Userlist />
