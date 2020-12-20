@@ -1,6 +1,17 @@
 import axios from 'axios'
+import GenerateTokenizedHeader from './GenerateTokenizedHeader'
 
-const baseURL = 'http://localhost:3001/movesets'
+const baseURL = 'http://localhost:8080/api/moveset'
+const config = GenerateTokenizedHeader()
+
+const putChanged = async (id, data) => {
+   const response = axios.put(
+       `${baseURL}/${id}`,
+       data,
+       config
+   )
+   return response.data
+}
 
 /**
  * Kokeilua, tällaista ei oikeasti käytetä, vaan haetaan aina id:illä
@@ -18,12 +29,6 @@ const getOne = async (id) => {
 
 const postNew = async (data) => {
     const response = await axios.post(`${baseURL}`, data)
-    return response
-}
-
-const putChanged = async (id, data) => {
-    console.log('** puttiin tulee', data)
-    const response = await axios.put(`${baseURL}/${id}`, data)
     return response
 }
 

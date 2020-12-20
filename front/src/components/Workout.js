@@ -3,28 +3,52 @@ import { useParams } from "react-router-dom"
 import ActiveMoveSet from './ActiveMoveSet'
 import FrozenMoveSet from './FrozenMoveSet'
 import workoutService from '../services/WorkoutService'
+import Spinner from './Spinner'
+import { StandardButton } from '../styles/Buttons' 
 
 const Workout = () => {
-    const id = useParams().id
 
-    const [data, setData] = useState({})
+    const [workout, setWorkout] = useState()
+    const [started, setStarted] = useState(false)
+    const [accomplished, setAccomplished] = useState(false)
 
     useEffect(() => {
         workoutService
-            .start('A')
-            .then(response => setData(response))
-            .catch(error => console.log('vituiksi meni', error))
+            .getNext()
+            .then(response => {
+                setWorkout({
+                    type: response.type,
+                    sets: response.sets,
+                    date: response.date,
+                    id: response.id
+                })
+            })
+            .catch(error => console.log('vituiksi meni', error.response))
     }, [])
 
-    const mockActiveWorkoutSetIds = [1,2]
-    const mockArchivedWorkoutSetIds = [5,6]
+    const startOrCancel = () => {
+        setStarted(!started)
+    }
 
+    if (workout == null) {
+        return(<Spinner />)
+    }
+
+    console.log('**workoutin state ', workout.sets)
+   
     return(
         <div>
-            <p>Meneillään oleva treeni...</p>
-            {mockActiveWorkoutSetIds.map(item => <ActiveMoveSet id={item} key={item} />)}
-            <p>Arkistoitu treeni...</p>
-            {mockArchivedWorkoutSetIds.map(item => <FrozenMoveSet id={item} key={item} />)}
+            <h3>
+                Seuraavana vuorossa
+                <StandardButton onClick={startOrCancel}>{started ? <div>peruuta</div> : <div>aloita</div>}</StandardButton>
+            </h3>
+            <table>
+                <tbody>
+                    {workout.sets.map(
+                        s => <ActiveMoveSet moveValue={s.move} weigthValue={s.weigth} repetitionsValue={s.repetitions} idValue={s.id} key={s.id} workoutStarted={started}/>
+                    )}
+                </tbody>
+            </table>
         </div>
     )
 }

@@ -1,17 +1,12 @@
 import axios from 'axios'
+import GenerateTokenizedHeader from './GenerateTokenizedHeader'
 
-const baseURL = 'http://localhost:3001/workouts'
+const baseURL = 'http://localhost:8080/api/workout'
+const config = GenerateTokenizedHeader()
 
-const start = async (data) => {
-    // simuloidaan tässä kohtaa sarjojen alustaminen (oikeasti back tekee sen)
-    const workout = {
-        "type": data,
-        "date": new Date(),
-        "setIds": [100, 101, 102, 103, 104]
-    }
-    
-    // const response = await axios.post(`${baseURL}`, workout)
-    // return response
+const getNext = async () => {
+    const response = await axios.get(`${baseURL}/next`, config)
+    return response.data
 }
 
-export default { start }
+export default { getNext }
