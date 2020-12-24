@@ -30,17 +30,21 @@ const ActiveMoveSet = ( {moveValue, weigthValue, repetitionsValue, idValue, work
     }, [data.repetitions])
     */
 
+    useEffect(() => {
+        moveSetService
+            .putChanged(data.id, data.repetitions)
+            .then(response => console.log('paluuarvo ', response))
+            .catch(error => console.log('vituiksi meni ', error))
+    }, [data])
+
+
     const handleClick = () => {
         if (counter === null || counter === undefined || counter === 0 || counter === -1) {
             counter = 5
         } else {
             counter -= 1
         }
-        setData({...data, repetitions: counter})
-        moveSetService
-            .putChanged(data.id, data)
-            .then(response => response)
-            .catch(error => console.log('vituiksi meni ', error))
+        setData({...data, repetitions: counter})    
     }
 
     const getPlainName = (move) => {
