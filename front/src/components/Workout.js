@@ -30,6 +30,16 @@ const Workout = () => {
         setStarted(!started)
     }
 
+    if(started === false) {
+        // miten hoidetaan resetointi jos harjoitus perutaan?
+    }
+
+    const finish = () => {
+        console.log('valmista...')
+    }
+
+
+
     if (workout == null) {
         return(<Spinner />)
     }
@@ -49,6 +59,7 @@ const Workout = () => {
                     )}
                 </tbody>
             </table>
+            <StandardButton onClick={finish} >Valmis</StandardButton>
         </div>
     )
 }

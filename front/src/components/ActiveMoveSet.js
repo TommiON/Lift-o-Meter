@@ -3,6 +3,7 @@ import { MoveSetButton } from '../styles/Buttons'
 import moveSetService from '../services/MoveSetService'
 
 const ActiveMoveSet = ( {moveValue, weigthValue, repetitionsValue, idValue, workoutStarted} ) => {    
+
     const [data, setData] = useState({
         move: moveValue,
         weigth: weigthValue,
@@ -11,24 +12,6 @@ const ActiveMoveSet = ( {moveValue, weigthValue, repetitionsValue, idValue, work
     })
     
     let counter = data.repetitions
-
-    /*
-    useEffect(() => {
-        moveSetService
-            .getOne(id)
-            .then(response => setData(response))
-            .catch(response => console.log('Virhe haettaessa sarjaa tietokannasta!', response))
-    }, [])
-
-    useEffect(() => {
-        console.log('useEffect laukeaa')
-        const updatedData = {...data, repetitions: data.repetitions}
-        moveSetService
-            .putChanged(id, data)
-            .then(response => console.log('kantaan kirjoitettu, vastaus: ', response))
-            .catch(response => console.log('Virhe putatessa sarjaa tietokantaan!', response))        
-    }, [data.repetitions])
-    */
 
     useEffect(() => {
         moveSetService
@@ -101,25 +84,6 @@ const ActiveMoveSet = ( {moveValue, weigthValue, repetitionsValue, idValue, work
         </tr>
     )
     
-
-
-    /*
-    return(
-        <div>
-            {console.log('*STATE:', data)}
-            {console.log('*COUNTER:', counter)}
-            {data.label}
-            {data.repetitions === null ?
-                <MoveSetButton emptySet onClick={handleClick}>{data.repetitions}</MoveSetButton>
-                :
-                data.repetitions === 5 ?
-                    <MoveSetButton fullSet onClick={handleClick}>{data.repetitions}</MoveSetButton>
-                    : 
-                    <MoveSetButton partialSet onClick={handleClick}>{data.repetitions}</MoveSetButton>
-            }
-        </div>
-    )
-    */
 }
 
 export default ActiveMoveSet
