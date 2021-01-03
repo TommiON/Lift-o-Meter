@@ -1,65 +1,80 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from "react-router-dom"
-import ActiveMoveSet from './ActiveMoveSet'
-import FrozenMoveSet from './FrozenMoveSet'
-import workoutService from '../services/WorkoutService'
+import React, {useState, useEffect} from 'react'
 import Spinner from './Spinner'
-import { StandardButton } from '../styles/Buttons' 
+import workoutService from '../services/WorkoutService'
+import moveSetService from '../services/MoveSetService'
+import MoveSet from './MoveSet'
+import { StandardButton } from '../styles/Buttons'
+import DecreaseUsingRollover from '../services/DecreaseUsingRollover'
 
 const Workout = () => {
 
-    const [workout, setWorkout] = useState()
+    const [workout, setWorkout] = useState({
+        sets: [],
+        startTime: null,
+        id: null,
+        type: null
+    })
+
     const [started, setStarted] = useState(false)
-    const [accomplished, setAccomplished] = useState(false)
+
+    console.log('workoutin state, setit', workout.sets)
 
     useEffect(() => {
         workoutService
             .getNext()
             .then(response => {
                 setWorkout({
-                    type: response.type,
                     sets: response.sets,
-                    date: response.date,
-                    id: response.id
+                    startTime: response.date,
+                    id: response.id,
+                    type: response.type
                 })
             })
             .catch(error => console.log('vituiksi meni', error.response))
     }, [])
 
-    const startOrCancel = () => {
-        setStarted(!started)
+    const handleClick = (id) => {
+        const updatedSets = workout.sets
+        updatedSets.forEach(s => {
+            if(s.id === id) {
+                s.repetitions = DecreaseUsingRollover(s.repetitions)
+                moveSetService
+                    .putChanged(s.id, s.repetitions)
+                    .then(setWorkout({...workout, sets: updatedSets}))
+                    .catch(error => console.log('vituiksi meni ', error))
+            }
+        })
     }
 
-    if(started === false) {
-        // miten hoidetaan resetointi jos harjoitus perutaan?
+    const startWorkout = () => {
+        setStarted(true)
     }
 
-    const finish = () => {
-        console.log('valmista...')
+    const cancelWorkout = () => {
+        workoutService
+            .reset(workout.id)
+            .then(response => {
+                setWorkout({
+                    sets: response.sets,
+                    startTime: response.date,
+                    id: response.id,
+                    type: response.type
+                })
+                setStarted(false)
+            })
+            .catch(error => console.log('virhe', error))
     }
 
-
-
-    if (workout == null) {
+    if (workout.sets == null) {
         return(<Spinner />)
     }
 
-    console.log('**workoutin state ', workout.sets)
-   
     return(
         <div>
-            <h3>
-                Seuraavana vuorossa
-                <StandardButton onClick={startOrCancel}>{started ? <div>peruuta</div> : <div>aloita</div>}</StandardButton>
-            </h3>
-            <table>
-                <tbody>
-                    {workout.sets.map(
-                        s => <ActiveMoveSet moveValue={s.move} weigthValue={s.weigth} repetitionsValue={s.repetitions} idValue={s.id} key={s.id} workoutStarted={started}/>
-                    )}
-                </tbody>
-            </table>
-            <StandardButton onClick={finish} >Valmis</StandardButton>
+            Seuraavana:
+            {workout.sets.map(s => <MoveSet move={s.move} reps={s.repetitions} id={s.id} key={s.id} workoutStarted={started} clickHandler={handleClick}/>
+            )}
+            {!started ? <StandardButton onClick={startWorkout}>aloita</StandardButton> : <StandardButton onClick={cancelWorkout}>keskeytä</StandardButton>}
         </div>
     )
 }

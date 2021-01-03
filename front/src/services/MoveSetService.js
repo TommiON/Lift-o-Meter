@@ -10,7 +10,7 @@ const putChanged = async (id, reps) => {
         newRepetitions: reps
     }
     const response = await axios.put(url, payload, config)
-    return response
+    return response.data
 
 }
 
