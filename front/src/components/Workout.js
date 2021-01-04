@@ -47,7 +47,16 @@ const Workout = () => {
     }
 
     const startWorkout = () => {
-        setStarted(true)
+        workoutService
+            .start(workout.id)
+            .then(response => {
+                setWorkout({
+                    ...workout,
+                    startTime: response.date
+                })
+                setStarted(true)
+            })
+            .catch(error => console.log('virhe', error))
     }
 
     const cancelWorkout = () => {

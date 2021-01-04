@@ -10,11 +10,12 @@ const getNext = async () => {
 }
 
 const start = async (id) => {
-
+    const url = `${baseURL}/start/${id}`
+    const response = await axios.get(url, config)
+    return response.data
 }
 
 const reset = async (id) => {
-    console.log('resetoidaan...')
     const url = `${baseURL}/reset/${id}`
     const response = await axios.get(url, config)
     return response.data
