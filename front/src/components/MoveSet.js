@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { MoveSetButton } from '../styles/Buttons'
 
-const MoveSet = ({move, reps, id, workoutStarted, clickHandler}) => {
+const MoveSet = ({move, reps, weigth, id, workoutStarted, clickHandler}) => {
 
     const getPlainName = (move) => {
         switch (move) {
@@ -45,12 +45,11 @@ const MoveSet = ({move, reps, id, workoutStarted, clickHandler}) => {
                     </div>
                 )
         }
-
     }
-
+    
     return(
         <div>
-            {getPlainName(move)} {getRepetitionButton(reps)}
+            {getPlainName(move)}, {weigth} kg {getRepetitionButton(reps)}
         </div>
     )
 

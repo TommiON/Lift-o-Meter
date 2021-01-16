@@ -81,7 +81,7 @@ const Workout = () => {
     return(
         <div>
             Seuraavana:
-            {workout.sets.map(s => <MoveSet move={s.move} reps={s.repetitions} id={s.id} key={s.id} workoutStarted={started} clickHandler={handleClick}/>
+            {workout.sets.map(s => <MoveSet move={s.move} reps={s.repetitions} weigth={s.weigth} id={s.id} key={s.id} workoutStarted={started} clickHandler={handleClick}/>
             )}
             {!started ? <StandardButton onClick={startWorkout}>aloita</StandardButton> : <StandardButton onClick={cancelWorkout}>keskeytä</StandardButton>}
         </div>
