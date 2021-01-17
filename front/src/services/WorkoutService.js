@@ -22,7 +22,9 @@ const reset = async (id) => {
 }
 
 const finish = async (id) => {
-
+    const url = `${baseURL}/finish/${id}`
+    const response = await axios.get(url, config)
+    return response.data
 }
 
 const getAllFinished = async () => {

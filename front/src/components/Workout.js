@@ -59,6 +59,15 @@ const Workout = () => {
             .catch(error => console.log('virhe', error))
     }
 
+    const finishWorkout = () => {
+        workoutService
+            .finish(workout.id)
+            .then(response => {
+                console.log('Workout päätökseen:', response)
+            })
+            .catch(error => console.log('virhe', error))
+    }
+
     const cancelWorkout = () => {
         workoutService
             .reset(workout.id)
@@ -84,6 +93,7 @@ const Workout = () => {
             {workout.sets.map(s => <MoveSet move={s.move} reps={s.repetitions} weigth={s.weigth} id={s.id} key={s.id} workoutStarted={started} clickHandler={handleClick}/>
             )}
             {!started ? <StandardButton onClick={startWorkout}>aloita</StandardButton> : <StandardButton onClick={cancelWorkout}>keskeytä</StandardButton>}
+            {started ? <StandardButton onClick={finishWorkout}>VALMIS!</StandardButton> : <div></div>}
         </div>
     )
 }
