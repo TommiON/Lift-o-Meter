@@ -5,6 +5,7 @@ import moveSetService from '../services/MoveSetService'
 import MoveSet from './MoveSet'
 import { StandardButton } from '../styles/Buttons'
 import DecreaseUsingRollover from '../services/DecreaseUsingRollover'
+import FindUniqueEntries from '../services/FindUniqueEntries'
 
 const Workout = () => {
 
@@ -16,8 +17,6 @@ const Workout = () => {
     })
 
     const [started, setStarted] = useState(false)
-
-    console.log('workoutin state, setit', workout.sets)
 
     useEffect(() => {
         workoutService
@@ -83,18 +82,78 @@ const Workout = () => {
             .catch(error => console.log('virhe', error))
     }
 
+    const getPlainName = (move) => {
+        switch (move) {
+            case 'SQUAT':
+                return 'Kyykky'
+            case 'BENCH':
+                return 'Penkkipunnerrus'
+            case 'ROW':
+                return 'Kulmasoutu'
+            case 'OVERHEAD':
+                return 'Pystypunnerrus'
+            case 'DEADLIFT':
+                return 'Maastaveto'
+            default:
+                break;
+        }
+    }
+
+    const reduceToMoves = () => {
+        const moves = workout.sets.map(s => s.move)
+        return FindUniqueEntries(moves)
+    }
+
+    const findWeightForMove = (moveName) => {
+        let weigth
+        workout.sets.forEach(
+            (element) => {
+                if(element.move === moveName) {
+                    weigth = element.weigth
+                }
+            }
+        )
+
+        if(moveName === 'DEADLIFT') {
+            return `1 x ${weigth} kg`
+        } else {
+            return `5 x ${weigth} kg`
+        }
+    }
+
+    const findSetsForMove = (moveName) => {
+        return workout.sets.filter(
+            element => element.move === moveName
+        )
+    }
+
     if (workout.sets == null) {
         return(<Spinner />)
     }
 
     return(
-        <div>
-            Seuraavana:
-            {workout.sets.map(s => <MoveSet move={s.move} reps={s.repetitions} weigth={s.weigth} id={s.id} key={s.id} workoutStarted={started} clickHandler={handleClick}/>
+        <table>
+            <tbody>
+            {reduceToMoves().map(
+                (move) =>
+                    <div>
+                    <tr>
+                        {getPlainName(move)} {findWeightForMove(move)}
+                    </tr>
+                    <tr>
+                        {findSetsForMove(move).map(
+                            (set) =>
+                                <td>
+                                    <MoveSet reps={set.repetitions} id={set.id} key={set.id} workoutStarted={started} clickHandler={handleClick}/>
+                                </td>
+                        )}
+                    </tr>
+                    </div>
             )}
+            </tbody>
             {!started ? <StandardButton onClick={startWorkout}>aloita</StandardButton> : <StandardButton onClick={cancelWorkout}>keskeytä</StandardButton>}
             {started ? <StandardButton onClick={finishWorkout}>VALMIS!</StandardButton> : <div></div>}
-        </div>
+        </table>
     )
 }
 

@@ -1,24 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { MoveSetButton } from '../styles/Buttons'
 
-const MoveSet = ({move, reps, weigth, id, workoutStarted, clickHandler}) => {
-
-    const getPlainName = (move) => {
-        switch (move) {
-            case 'SQUAT':
-                return 'Kyykky'
-            case 'BENCH':
-                return 'Penkkipunnerrus'
-            case 'ROW':
-                return 'Kulmasoutu'
-            case 'OVERHEAD':
-                return 'Pystypunnerrus'
-            case 'DEADLIFT':
-                return 'Maastaveto'
-            default:
-                break;
-        }
-    }
+const MoveSet = ({reps, id, workoutStarted, clickHandler}) => {
 
     const getRepetitionButton = () => {
         if(!workoutStarted) {
@@ -46,10 +29,10 @@ const MoveSet = ({move, reps, weigth, id, workoutStarted, clickHandler}) => {
                 )
         }
     }
-    
+
     return(
         <div>
-            {getPlainName(move)}, {weigth} kg {getRepetitionButton(reps)}
+            {getRepetitionButton(reps)}
         </div>
     )
 
