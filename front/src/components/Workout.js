@@ -132,6 +132,7 @@ const Workout = () => {
     }
 
     return(
+        <div>
         <table>
             <tbody>
             {reduceToMoves().map(
@@ -151,9 +152,10 @@ const Workout = () => {
                     </div>
             )}
             </tbody>
-            {!started ? <StandardButton onClick={startWorkout}>aloita</StandardButton> : <StandardButton onClick={cancelWorkout}>keskeytä</StandardButton>}
-            {started ? <StandardButton onClick={finishWorkout}>VALMIS!</StandardButton> : <div></div>}
         </table>
+        {!started ? <StandardButton onClick={startWorkout}>aloita</StandardButton> : <StandardButton onClick={cancelWorkout}>keskeytä</StandardButton>}
+        {started ? <StandardButton onClick={finishWorkout}>VALMIS!</StandardButton> : <div></div>}
+        </div>
     )
 }
 
