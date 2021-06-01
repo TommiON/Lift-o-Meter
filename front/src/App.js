@@ -11,12 +11,11 @@ import AccountDetails from './components/AccountDetails'
 import AuthService from './services/AuthService'
 import GenerateTokenizedHeader from './services/GenerateTokenizedHeader'
 
+import Container from 'react-bootstrap/Container'
+import NavigationBar from './components/NavigationBar'
+
 function App() {
   
-  const temporaryStyle = {
-    padding: 5
-  }
-
   const [loggedUser, setLoggedUser] = useState(null)
 
   useEffect(() => {
@@ -41,39 +40,35 @@ function App() {
   const logout = () => {
     window.localStorage.removeItem('username')
     window.localStorage.removeItem('accessToken')
+    setLoggedUser(undefined)
   }
 
-  return (
-    <Page>
-    <BrowserRouter>
-      <Navigation>
-        <Link to="/signup" style={temporaryStyle}>Rekisteröidy</Link>
-        <Link to="/workouts" style={temporaryStyle}>Vuorossa</Link>
-        <Link to="/users" style={temporaryStyle}>Käyttäjät</Link>
-        |
-        {loggedUser !== null ? <span><b>{loggedUser}</b> kirjautunut. <a href="" onClick={logout}>Kirjaudu ulos</a></span> : <div></div> }
+  /*
+   {loggedUser !== null ? <span><b>{loggedUser}</b> kirjautunut. <a href="" onClick={logout}>Kirjaudu ulos</a></span> : <div></div> }
         {loggedUser !== null ? <Link to="/profile" style={temporaryStyle}>Oma profiili</Link> : <div></div>}
-      </Navigation>
+  */
 
-      <Switch>
-        <Route path="/signup">
-          <UserAdder />
-        </Route>
-        <Route path="/workouts">
-          <Workout />
-        </Route>
-        <Route path="/users">
-          <Userlist />
-        </Route>
-        <Route path="/profile">
-          <AccountDetails />
-        </Route>
-      </Switch>
-    </BrowserRouter>
-
-    {loggedUser === null && showLogin()}
-  
-    </Page>
+  return (
+    <Container>
+      <BrowserRouter>
+        <NavigationBar />
+        <Switch>
+          <Route path="/signup">
+            <UserAdder />
+          </Route>
+          <Route path="/next">
+            <Workout />
+          </Route>
+          <Route path="/users">
+            <Userlist />
+          </Route>
+          <Route path="/profile">
+            <AccountDetails />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+      {loggedUser === null && showLogin()}
+    </Container>
   )
 }
 

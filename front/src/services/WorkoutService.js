@@ -6,12 +6,14 @@ const config = GenerateTokenizedHeader()
 
 const getNext = async () => {
     const response = await axios.get(`${baseURL}/next`, config)
+    console.log('** WorkoutService, getNext: ', response)
     return response.data
 }
 
 const start = async (id) => {
     const url = `${baseURL}/start/${id}`
     const response = await axios.get(url, config)
+    console.log('** WorkoutService, start: ', response)
     return response.data
 }
 

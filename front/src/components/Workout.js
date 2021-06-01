@@ -28,6 +28,7 @@ const Workout = () => {
                     id: response.id,
                     type: response.type
                 })
+                console.log('Workoutit ladattu!', response)
             })
             .catch(error => console.log('vituiksi meni', error.response))
     }, [])
@@ -131,8 +132,11 @@ const Workout = () => {
         return(<Spinner />)
     }
 
+    console.log('** Workoutissa nyt: ', workout, started)
+
     return(
         <div>
+             tekstiä...
         <table>
             <tbody>
             {reduceToMoves().map(
@@ -145,7 +149,7 @@ const Workout = () => {
                         {findSetsForMove(move).map(
                             (set) =>
                                 <td>
-                                    <MoveSet reps={set.repetitions} id={set.id} key={set.id} workoutStarted={started} clickHandler={handleClick}/>
+                                    <MoveSet reps={set.repetitions} id={set.id} key={set.id} workoutStarted={started} clickHandler={handleClick} />
                                 </td>
                         )}
                     </tr>
