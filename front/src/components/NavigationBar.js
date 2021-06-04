@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button} from "react-bootstrap"
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom"
 
-const NavigationBar = () => {
+const NavigationBar = ( {logoutFunction} ) => {
     return(
         <Navbar bg="primary" variant="dark" expand="md">
             <Navbar.Brand as={Link} to="/">Lift-o-Meter</Navbar.Brand>
@@ -18,7 +18,7 @@ const NavigationBar = () => {
                     <Nav.Link as={Link} to="/profile" >
                         Profiili
                     </Nav.Link>
-                    <Nav.Link as={Link} to="/logout">
+                    <Nav.Link as={Link} onClick={logoutFunction}>
                         Kirjaudu ulos
                     </Nav.Link>
                 </Nav>

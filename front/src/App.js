@@ -27,6 +27,8 @@ function App() {
 
   const showLogin = () => ( <LoginScreen loginFunction={login} /> )
 
+  const showSignup = () => ( <p>Ei tunnusta? <Link to="/signup">Rekisteröidy</Link></p> )
+
   const login = (userdata) => {
     AuthService
             .login(userdata)
@@ -38,6 +40,7 @@ function App() {
   }
 
   const logout = () => {
+    console.log('Kirjaudutaan ulos...')
     window.localStorage.removeItem('username')
     window.localStorage.removeItem('accessToken')
     setLoggedUser(undefined)
@@ -51,7 +54,9 @@ function App() {
   return (
     <Container>
       <BrowserRouter>
-        <NavigationBar />
+        <NavigationBar logoutFunction={() => logout()} />
+        {loggedUser === null && showLogin()}
+        {loggedUser === undefined && showSignup()}
         <Switch>
           <Route path="/signup">
             <UserAdder />
@@ -67,7 +72,6 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
-      {loggedUser === null && showLogin()}
     </Container>
   )
 }
