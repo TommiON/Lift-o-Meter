@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button} from "react-bootstrap"
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const NavigationBar = ( {logoutFunction} ) => {
     return(

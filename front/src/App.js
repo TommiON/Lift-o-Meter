@@ -10,13 +10,20 @@ import LoginScreen from './components/LoginScreen'
 import AccountDetails from './components/AccountDetails'
 import AuthService from './services/AuthService'
 import GenerateTokenizedHeader from './services/GenerateTokenizedHeader'
+import Notification from './components/Notification'
 
 import Container from 'react-bootstrap/Container'
 import NavigationBar from './components/NavigationBar'
+import { Button } from 'react-bootstrap'
 
 function App() {
   
   const [loggedUser, setLoggedUser] = useState(null)
+
+  const [notification, setNotification] = useState({
+    message: '',
+    error: false
+  })
 
   useEffect(() => {
     const username = window.localStorage.getItem('username')
@@ -28,6 +35,11 @@ function App() {
   const showLogin = () => ( <LoginScreen loginFunction={login} /> )
 
   const showSignup = () => ( <p>Ei tunnusta? <Link to="/signup">Rekisteröidy</Link></p> )
+
+  const notify = (message, error) => {
+    setNotification({ message: message, error: error })
+    setTimeout(() => setNotification({ message: '' }), 3000)
+  }
 
   const login = (userdata) => {
     AuthService
@@ -55,11 +67,12 @@ function App() {
     <Container>
       <BrowserRouter>
         <NavigationBar logoutFunction={() => logout()} />
+        <Notification message={notification.message} error={notification.error} />
         {loggedUser === null && showLogin()}
         {loggedUser === undefined && showSignup()}
         <Switch>
           <Route path="/signup">
-            <UserAdder />
+            <UserAdder notificationCallback={notify} />
           </Route>
           <Route path="/next">
             <Workout />
