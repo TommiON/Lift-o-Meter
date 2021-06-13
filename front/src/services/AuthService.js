@@ -9,6 +9,11 @@ const login = async credentials => {
 
 const signup = async userData => {
     const response = await axios.post(`${baseURL}/signup`, userData)
+        .catch(e => {
+            console.log('** axios-error!', e)
+            throw e
+    })
+    console.log('** AuthService signup:', response)
     return response
 }
 

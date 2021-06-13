@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { StandardButton } from '../styles/Buttons'
 import { Input} from '../styles/styles'
-import AuthService from '../services/AuthService'
 
-const LoginScreen = ( {loginFunction}) => {
+const LoginScreen = ({ loginFunction, visible }) => {
     
     const [userdata, setUserdata] = useState({
         username: '',
@@ -28,6 +27,10 @@ const LoginScreen = ( {loginFunction}) => {
         })
     }
 
+    if(!visible) {
+        return null
+    }
+
     return(
         <div>
             <h3>Kirjaudu sisään</h3>
@@ -46,7 +49,6 @@ const LoginScreen = ( {loginFunction}) => {
                 </table>
                 <StandardButton type="submit">Kirjaudu</StandardButton>
             </form>
-            <p>Ei käyttäjätunnusta? <a href="">Luo käyttäjätunnus</a>.</p>
         </div>
     )
 }

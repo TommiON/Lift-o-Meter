@@ -5,7 +5,7 @@ import { StandardButton } from '../styles/Buttons'
 import { Input} from '../styles/styles'
 import AuthService from '../services/AuthService'
 
-const UserAdder = ( {notificationCallback} ) => {
+const UserAdder = ({ visible, notificationCallback }) => {
 
     const [userdata, setUserdata] = useState({
         username: '',
@@ -19,7 +19,7 @@ const UserAdder = ( {notificationCallback} ) => {
 
     const [passwordConfirmation, setPasswordConfirmation] = useState(null)
     const [errors, setErrors] = useState({})
-
+   
     const validateForErrors = () => {
         const {username, password, bestSquat, bestBenchPress, bestBarbellRow, bestOverheadPress, bestDeadlift} = userdata
         const newErrors = {}
@@ -59,14 +59,6 @@ const UserAdder = ( {notificationCallback} ) => {
         const field = event.target.name
         const value = event.target.value
 
-        /*
-        if(field === 'username' || field === 'password' || field === 'password2') {
-            value = event.target.value
-        } else {
-            value = parseFloat(event.target.value)
-        }
-        */
-
         if(field === 'password2') {
             setPasswordConfirmation(value)
         } else {
@@ -90,8 +82,16 @@ const UserAdder = ( {notificationCallback} ) => {
         } else {
             AuthService
                 .signup(userdata)
-                .then(response => console.log(response))
-                .catch(error => console.log('**Virhe: ', error))
+                .then(response => {
+                    console.log('** UserAdder, handleSubmit, lisätään: ', response)
+                    notificationCallback(`Käyttäjätili lisätty. Kirjaudu sisään, ${userdata.username}!`, false)
+                })
+                .catch(error => {
+                    console.log('** UserAdder, handleSubmit, virhe: ', error.response)
+                    if(error.response.status === 400) {
+                        notificationCallback('Käyttäjätunnus on jo varattu!', true)
+                    }
+                })
             setUserdata({
                 username: '',
                 password: '',
@@ -101,9 +101,15 @@ const UserAdder = ( {notificationCallback} ) => {
                 bestOverheadPress: '',
                 bestDeadlift: ''
             })
-            notificationCallback(`Käyttäjätili lisätty. Tervetuloa ${userdata.username}!`, false)
+            setPasswordConfirmation('')
         }
     }
+
+    /*
+    if(!visible) {
+        return null
+    }
+    */
 
     return(
         <div>
@@ -196,7 +202,7 @@ const UserAdder = ( {notificationCallback} ) => {
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row}>
-                    <Form.Label column sm={2}>Kulmasoutu</Form.Label>
+                    <Form.Label column sm={2}>Pystypunnerrus</Form.Label>
                     <Col sm={10}>
                         <Form.Control
                             type='number'
@@ -221,7 +227,8 @@ const UserAdder = ( {notificationCallback} ) => {
                         <Form.Control.Feedback type='invalid'>{ errors.bestDeadlift }</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
-                <Button type='submit'>Rekisteröidy</Button>
+                <StandardButton type='submit'>Rekisteröidy</StandardButton>
+                <Button>Peruuta</Button>
             </Form>
         </div>
     )
