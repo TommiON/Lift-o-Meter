@@ -1,6 +1,8 @@
 import axios from 'axios'
+import GenerateTokenizedHeader from './GenerateTokenizedHeader'
 
 const baseURL = 'http://localhost:8080/api/auth'
+const config = GenerateTokenizedHeader()
 
 const login = async credentials => {
     const response = await axios.post(`${baseURL}/login`, credentials)
@@ -17,4 +19,10 @@ const signup = async userData => {
     return response
 }
 
-export default {login, signup}
+const logout = async () => {
+    const response = await axios.get(`${baseURL}/logout`, config)
+    console.log('** AuthService logout:', response)
+    return response
+}
+
+export default {login, signup, logout}

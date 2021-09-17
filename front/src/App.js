@@ -54,15 +54,27 @@ function App() {
             })
             .catch(error => {
               notify('Ongelma kirjautumisessa - väärä tunnus tai salasana?', true)
-              console.log('** App, login, error: ', error)
+              console.log('** App, login, virhe: ', error)
             })
   }
 
-  const logout = () => {
-    console.log('Kirjaudutaan ulos...')
+  const logout = (userdata) => {
+    /*
     window.localStorage.removeItem('username')
-    window.localStorage.removeItem('accessToken')
-    setLoggedUser(null)
+              window.localStorage.removeItem('accessToken')
+              setLoggedUser(null)
+    */
+    AuthService
+            .logout()
+            .then(response => {
+              window.localStorage.removeItem('username')
+              window.localStorage.removeItem('accessToken')
+              setLoggedUser(null)
+              console.log('Logattiin ulos: ', response)
+            })
+            .catch(error => {
+              console.log('** App, logout, virhe:', error)
+            })
   }
 
   return (
@@ -75,16 +87,15 @@ function App() {
             <UserAdder notificationCallback={notify} visible={!loggedUser} />
           </Route>
           <Route path="/next">
-            <Workout />
-          </Route>
-          <Route path="/users">
-            <Userlist />
+            {loggedUser ? <Workout /> : <LoginScreen loginFunction={login} visible={!loggedUser} />}
           </Route>
           <Route path="/profile">
-            <AccountDetails />
+            {loggedUser ? <AccountDetails /> : <LoginScreen loginFunction={login} visible={!loggedUser} />}
+          </Route>
+          <Route path="/logout">
+            <Redirect to="/" />
           </Route>
           <Route path="/">
-            {console.log('*** LoggedUserin status:', loggedUser)}
             {loggedUser ? <Redirect to="/next" /> : <LoginScreen loginFunction={login} visible={!loggedUser} />}
             {loggedUser ? <p></p> : <p>Ei käyttäjätunnusta? <Link to="/signup">Rekisteröidy</Link></p>}
           </Route>

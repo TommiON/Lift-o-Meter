@@ -132,11 +132,9 @@ const Workout = () => {
         return(<Spinner />)
     }
 
-    console.log('** Workoutissa nyt: ', workout, started)
-
     return(
         <div>
-             tekstiä...
+            {console.log('workoutissa...', workout)}
         <table>
             <tbody>
             {reduceToMoves().map(

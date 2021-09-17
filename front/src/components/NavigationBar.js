@@ -30,7 +30,7 @@ const NavigationBar = ( {logoutFunction, loggedIn } ) => {
                     <Nav.Link as={Link} to="/profile" >
                         Profiili
                     </Nav.Link>
-                    <Nav.Link as={Link} onClick={logoutFunction}>
+                    <Nav.Link as={Link} to="/logout" onClick={logoutFunction}>
                         Kirjaudu ulos
                     </Nav.Link>
                 </Nav>

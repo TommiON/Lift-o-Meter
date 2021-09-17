@@ -227,7 +227,7 @@ const UserAdder = ({ visible, notificationCallback }) => {
                         <Form.Control.Feedback type='invalid'>{ errors.bestDeadlift }</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
-                <StandardButton type='submit'>Rekisteröidy</StandardButton>
+                <Button type='submit'>Rekisteröidy</Button>
                 <Button>Peruuta</Button>
             </Form>
         </div>
