@@ -5,6 +5,8 @@ const baseURL = 'http://localhost:8080/api/workout'
 const config = GenerateTokenizedHeader()
 
 const getNext = async () => {
+    console.log('** Local storage Workoutissa: ', localStorage)
+    const config = GenerateTokenizedHeader()
     const response = await axios.get(`${baseURL}/next`, config)
     console.log('** WorkoutService, getNext: ', response)
     return response.data

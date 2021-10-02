@@ -7,17 +7,17 @@ import { StandardButton } from '../styles/Buttons'
 import DecreaseUsingRollover from '../services/DecreaseUsingRollover'
 import FindUniqueEntries from '../services/FindUniqueEntries'
 
-const Workout = () => {
+const Workout = ( {workoutData} ) => {
 
     const [workout, setWorkout] = useState({
-        sets: [],
-        startTime: null,
-        id: null,
-        type: null
+        sets: workoutData.sets,
+        startTime: workoutData.startTime,
+        id: workoutData.id,
+        type: workoutData.type
     })
-
     const [started, setStarted] = useState(false)
 
+    /*
     useEffect(() => {
         workoutService
             .getNext()
@@ -30,8 +30,9 @@ const Workout = () => {
                 })
                 console.log('Workoutit ladattu!', response)
             })
-            .catch(error => console.log('vituiksi meni', error.response))
+            .catch(error => console.log('Workouttien lataaminen meni vituiksi', error.response))
     }, [])
+    */
 
     const handleClick = (id) => {
         const updatedSets = workout.sets
@@ -128,13 +129,12 @@ const Workout = () => {
         )
     }
 
-    if (workout.sets == null) {
-        return(<Spinner />)
+    if(workout.id === undefined) {
+        return <Spinner />
     }
 
     return(
         <div>
-            {console.log('workoutissa...', workout)}
         <table>
             <tbody>
             {reduceToMoves().map(

@@ -8,6 +8,7 @@ const GenerateTokenizedHeader = () => {
         }
     }
     
+    console.log('**TokenGenerator returining: ', config)
     return config
 }
 

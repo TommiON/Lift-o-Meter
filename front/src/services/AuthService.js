@@ -15,13 +15,12 @@ const signup = async userData => {
             console.log('** axios-error!', e)
             throw e
     })
-    console.log('** AuthService signup:', response)
     return response
 }
 
 const logout = async () => {
+    const config = GenerateTokenizedHeader()
     const response = await axios.get(`${baseURL}/logout`, config)
-    console.log('** AuthService logout:', response)
     return response
 }
 

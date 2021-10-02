@@ -9,16 +9,22 @@ import { StandardButton } from './styles/Buttons'
 import LoginScreen from './components/LoginScreen'
 import AccountDetails from './components/AccountDetails'
 import AuthService from './services/AuthService'
-import GenerateTokenizedHeader from './services/GenerateTokenizedHeader'
+import WorkoutService from './services/WorkoutService'
 import Notification from './components/Notification'
 
 import Container from 'react-bootstrap/Container'
 import NavigationBar from './components/NavigationBar'
-import { Button } from 'react-bootstrap'
+import { Button, Spinner } from 'react-bootstrap'
 
 function App() {
   
   const [loggedUser, setLoggedUser] = useState(null)
+  const [workout, setWorkout] = useState({
+    sets: [],
+    startTime: null,
+    id: null,
+    type: null
+  })
   const [notification, setNotification] = useState({
     message: '',
     error: false
@@ -42,38 +48,51 @@ function App() {
   }
 
   const login = (userdata) => {
+    window.localStorage.removeItem('username')
+    window.localStorage.removeItem('accessToken')
     AuthService
             .login(userdata)
             .then(response => {
-              window.localStorage.removeItem('username')
-              window.localStorage.removeItem('accessToken')
-              window.localStorage.setItem('username', response.data.username)
-              window.localStorage.setItem('accessToken', response.data.accessToken)
-              setLoggedUser(response.data.username)
+                window.localStorage.setItem('username', response.data.username)
+                window.localStorage.setItem('accessToken', response.data.accessToken)
+                console.log('** Local storage loginin jälkeen: ', localStorage)
+                setLoggedUser(response.data.username)
+                WorkoutService
+                    .getNext()
+                    .then(response => {
+                        setWorkout({
+                            sets: response.sets,
+                            startTime: response.date,
+                            id: response.id,
+                            type: response.type
+                        })
+                    })
+                    .catch(
+                        error => console.log('Workouttien lataaminen meni vituiksi päätasolla', error.response)
+                    )
               notify(`Tervetuloa, ${window.localStorage.getItem('username')}!`)
-            })
+              })
             .catch(error => {
-              notify('Ongelma kirjautumisessa - väärä tunnus tai salasana?', true)
-              console.log('** App, login, virhe: ', error)
+                notify('Ongelma kirjautumisessa - väärä tunnus tai salasana?', true)
             })
   }
 
-  const logout = (userdata) => {
-    /*
-    window.localStorage.removeItem('username')
-              window.localStorage.removeItem('accessToken')
-              setLoggedUser(null)
-    */
+  const logout = () => {
     AuthService
             .logout()
             .then(response => {
-              window.localStorage.removeItem('username')
-              window.localStorage.removeItem('accessToken')
-              setLoggedUser(null)
-              console.log('Logattiin ulos: ', response)
+                window.localStorage.removeItem('username')
+                window.localStorage.removeItem('accessToken')
+                setLoggedUser(null)
+                setWorkout({
+                  sets: [],
+                  startTime: null,
+                  id: null,
+                  type: null
+                })
             })
             .catch(error => {
-              console.log('** App, logout, virhe:', error)
+                
             })
   }
 
@@ -87,7 +106,7 @@ function App() {
             <UserAdder notificationCallback={notify} visible={!loggedUser} />
           </Route>
           <Route path="/next">
-            {loggedUser ? <Workout /> : <LoginScreen loginFunction={login} visible={!loggedUser} />}
+            {loggedUser ? <Workout workoutData={workout} /> : <LoginScreen loginFunction={login} visible={!loggedUser} />}
           </Route>
           <Route path="/profile">
             {loggedUser ? <AccountDetails /> : <LoginScreen loginFunction={login} visible={!loggedUser} />}
