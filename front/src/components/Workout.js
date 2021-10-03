@@ -9,30 +9,16 @@ import FindUniqueEntries from '../services/FindUniqueEntries'
 
 const Workout = ( {workoutData} ) => {
 
-    const [workout, setWorkout] = useState({
-        sets: workoutData.sets,
-        startTime: workoutData.startTime,
-        id: workoutData.id,
-        type: workoutData.type
-    })
+    const [workout, setWorkout] = useState(workoutData)
     const [started, setStarted] = useState(false)
 
-    /*
     useEffect(() => {
-        workoutService
-            .getNext()
-            .then(response => {
-                setWorkout({
-                    sets: response.sets,
-                    startTime: response.date,
-                    id: response.id,
-                    type: response.type
-                })
-                console.log('Workoutit ladattu!', response)
-            })
-            .catch(error => console.log('Workouttien lataaminen meni vituiksi', error.response))
-    }, [])
-    */
+        setWorkout(
+            {
+                ...workoutData
+            }
+        )
+    }, [workoutData])
 
     const handleClick = (id) => {
         const updatedSets = workout.sets
@@ -129,7 +115,7 @@ const Workout = ( {workoutData} ) => {
         )
     }
 
-    if(workout.id === undefined) {
+    if(workout.id === undefined || workout.id === null) {
         return <Spinner />
     }
 
@@ -138,20 +124,23 @@ const Workout = ( {workoutData} ) => {
         <table>
             <tbody>
             {reduceToMoves().map(
-                (move) =>
-                    <div>
-                    <tr>
-                        {getPlainName(move)} {findWeightForMove(move)}
-                    </tr>
+                (move) => {
+                    return[
+                    <tr key={move}>
+                        <td>
+                            {getPlainName(move)} {findWeightForMove(move)}
+                        </td>
+                    </tr>,
                     <tr>
                         {findSetsForMove(move).map(
                             (set) =>
-                                <td>
+                                <td key={set.id}>
                                     <MoveSet reps={set.repetitions} id={set.id} key={set.id} workoutStarted={started} clickHandler={handleClick} />
                                 </td>
                         )}
                     </tr>
-                    </div>
+                    ]
+                }
             )}
             </tbody>
         </table>

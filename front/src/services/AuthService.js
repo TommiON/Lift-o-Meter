@@ -2,7 +2,6 @@ import axios from 'axios'
 import GenerateTokenizedHeader from './GenerateTokenizedHeader'
 
 const baseURL = 'http://localhost:8080/api/auth'
-const config = GenerateTokenizedHeader()
 
 const login = async credentials => {
     const response = await axios.post(`${baseURL}/login`, credentials)

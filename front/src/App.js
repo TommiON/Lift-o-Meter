@@ -55,7 +55,6 @@ function App() {
             .then(response => {
                 window.localStorage.setItem('username', response.data.username)
                 window.localStorage.setItem('accessToken', response.data.accessToken)
-                console.log('** Local storage loginin jälkeen: ', localStorage)
                 setLoggedUser(response.data.username)
                 WorkoutService
                     .getNext()
@@ -106,17 +105,33 @@ function App() {
             <UserAdder notificationCallback={notify} visible={!loggedUser} />
           </Route>
           <Route path="/next">
-            {loggedUser ? <Workout workoutData={workout} /> : <LoginScreen loginFunction={login} visible={!loggedUser} />}
+            {loggedUser ?
+                <Workout workoutData={workout} /> 
+                        : 
+                <LoginScreen loginFunction={login} visible={!loggedUser} />
+            }
           </Route>
           <Route path="/profile">
-            {loggedUser ? <AccountDetails /> : <LoginScreen loginFunction={login} visible={!loggedUser} />}
+            {loggedUser ?
+                <AccountDetails /> 
+                        :
+                <LoginScreen loginFunction={login} visible={!loggedUser} />
+            }
           </Route>
           <Route path="/logout">
             <Redirect to="/" />
           </Route>
           <Route path="/">
-            {loggedUser ? <Redirect to="/next" /> : <LoginScreen loginFunction={login} visible={!loggedUser} />}
-            {loggedUser ? <p></p> : <p>Ei käyttäjätunnusta? <Link to="/signup">Rekisteröidy</Link></p>}
+            {loggedUser ?
+                <Redirect to="/next" />
+                        :
+                <LoginScreen loginFunction={login} visible={!loggedUser} />
+            }
+            {loggedUser ? 
+                <p></p> 
+                        :
+                <p>Ei käyttäjätunnusta? <Link to="/signup">Rekisteröidy</Link></p>
+            }
           </Route>
         </Switch>
       </BrowserRouter>

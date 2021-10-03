@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { MoveSetButton } from '../styles/Buttons'
 
 const MoveSet = ({reps, id, workoutStarted, clickHandler}) => {
