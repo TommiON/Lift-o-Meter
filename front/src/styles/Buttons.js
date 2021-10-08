@@ -15,7 +15,7 @@ const MoveSetButton = styled.button`
   color: "black";
   font-size: 1em;
   margin: 1em;
-  padding: 0.25em 1em;
+  padding: 0px;
   border: 2px solid Chocolate;
   border-radius: 3px;
   width: 36px;

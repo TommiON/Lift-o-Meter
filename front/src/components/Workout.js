@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import Spinner from './Spinner'
+import SpinnerIndicator from './SpinnerIndicator'
 import workoutService from '../services/WorkoutService'
 import moveSetService from '../services/MoveSetService'
 import MoveSet from './MoveSet'
@@ -116,9 +116,41 @@ const Workout = ( {workoutData} ) => {
     }
 
     if(workout.id === undefined || workout.id === null) {
-        return <Spinner />
+        return <SpinnerIndicator />
     }
 
+    return(
+        <div>
+
+            <p>Seuraavana vuorossa...</p>
+            {reduceToMoves().map(
+                (move) => {
+                    return(
+                        <div>
+                            <h6> {getPlainName(move)} {findWeightForMove(move)} </h6>
+                            <table><tr>
+                                {findSetsForMove(move).map(
+                                    (set) => {
+                                        return(
+                                            <td>
+                                                <MoveSet reps={set.repetitions} id={set.id} key={set.id} workoutStarted={started} clickHandler={handleClick} />
+                                            </td>
+                                        )
+                                    }
+                                )}
+                            </tr></table>
+                        </div>
+                    )
+                }
+            )}
+            
+            {!started ? <StandardButton onClick={startWorkout}>aloita</StandardButton> : <StandardButton onClick={cancelWorkout}>keskeytä</StandardButton>}
+            {started ? <StandardButton onClick={finishWorkout}>VALMIS!</StandardButton> : <div></div>}
+        
+        </div>
+    )
+
+    /*
     return(
         <div>
         <table>
@@ -148,6 +180,7 @@ const Workout = ( {workoutData} ) => {
         {started ? <StandardButton onClick={finishWorkout}>VALMIS!</StandardButton> : <div></div>}
         </div>
     )
+    */
 }
 
 export default Workout
