@@ -22,10 +22,10 @@ const NavigationBar = ( {logoutFunction, loggedIn } ) => {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link as={Link} to="/next" variant="transparent" >
-                        Seuraava
+                        Vuorossa
                     </Nav.Link>
                     <Nav.Link as={Link} to="/completed" >
-                        Edelliset
+                        Aiemmat
                     </Nav.Link>
                     <Nav.Link as={Link} to="/profile" >
                         Profiili

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import { BrowserRouter, Switch, Route, Link, Redirect } from "react-router-dom"
 import Workout from './components/Workout'
+import ArchivedWorkouts from './components/ArchivedWorkouts'
 import Userlist from './components/Userlist'
 import UserAdder from './components/UserAdder'
 import { Page, Navigation } from './styles/styles'
@@ -107,6 +108,13 @@ function App() {
           <Route path="/next">
             {loggedUser ?
                 <Workout workoutData={workout} /> 
+                        : 
+                <LoginScreen loginFunction={login} visible={!loggedUser} />
+            }
+          </Route>
+          <Route path="/completed">
+            {loggedUser ?
+                <ArchivedWorkouts /> 
                         : 
                 <LoginScreen loginFunction={login} visible={!loggedUser} />
             }

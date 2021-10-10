@@ -5,7 +5,7 @@ import moveSetService from '../services/MoveSetService'
 import MoveSet from './MoveSet'
 import { StandardButton } from '../styles/Buttons'
 import DecreaseUsingRollover from '../services/DecreaseUsingRollover'
-import FindUniqueEntries from '../services/FindUniqueEntries'
+import {FindUniqueEntries, GetPlainName} from '../services/WorkoutHelpers'
 
 const Workout = ( {workoutData} ) => {
 
@@ -50,7 +50,10 @@ const Workout = ( {workoutData} ) => {
         workoutService
             .finish(workout.id)
             .then(response => {
-                console.log('Workout päätökseen:', response)
+                setWorkout({
+                    ...response
+                })
+                setStarted(false)
             })
             .catch(error => console.log('virhe', error))
     }
@@ -70,22 +73,7 @@ const Workout = ( {workoutData} ) => {
             .catch(error => console.log('virhe', error))
     }
 
-    const getPlainName = (move) => {
-        switch (move) {
-            case 'SQUAT':
-                return 'Kyykky'
-            case 'BENCH':
-                return 'Penkkipunnerrus'
-            case 'ROW':
-                return 'Kulmasoutu'
-            case 'OVERHEAD':
-                return 'Pystypunnerrus'
-            case 'DEADLIFT':
-                return 'Maastaveto'
-            default:
-                break;
-        }
-    }
+   
 
     const reduceToMoves = () => {
         const moves = workout.sets.map(s => s.move)
@@ -127,7 +115,7 @@ const Workout = ( {workoutData} ) => {
                 (move) => {
                     return(
                         <div>
-                            <h6> {getPlainName(move)} {findWeightForMove(move)} </h6>
+                            <h6> {GetPlainName(move)} {findWeightForMove(move)} </h6>
                             <table><tr>
                                 {findSetsForMove(move).map(
                                     (set) => {
@@ -144,8 +132,8 @@ const Workout = ( {workoutData} ) => {
                 }
             )}
             
-            {!started ? <StandardButton onClick={startWorkout}>aloita</StandardButton> : <StandardButton onClick={cancelWorkout}>keskeytä</StandardButton>}
-            {started ? <StandardButton onClick={finishWorkout}>VALMIS!</StandardButton> : <div></div>}
+            {!started ? <StandardButton onClick={startWorkout}>Aloita</StandardButton> : <StandardButton onClick={cancelWorkout}>Keskeytä</StandardButton>}
+            {started ? <StandardButton onClick={finishWorkout}>Valmis</StandardButton> : <div></div>}
         
         </div>
     )

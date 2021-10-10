@@ -30,8 +30,11 @@ const finish = async (id) => {
     return response.data
 }
 
-const getAllFinished = async () => {
-
+const getCompleted = async () => {
+    const url = `${baseURL}/completed/`
+    const config = GenerateTokenizedHeader()
+    const response = await axios.get(url, config)
+    return response.data
 }
 
-export default { getNext, start, reset, finish, getAllFinished }
+export default { getNext, start, reset, finish, getCompleted }
