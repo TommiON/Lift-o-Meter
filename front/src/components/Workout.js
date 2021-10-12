@@ -7,18 +7,32 @@ import { StandardButton } from '../styles/Buttons'
 import DecreaseUsingRollover from '../services/DecreaseUsingRollover'
 import {FindUniqueEntries, GetPlainName} from '../services/WorkoutHelpers'
 
-const Workout = ( {workoutData} ) => {
+const Workout = () => {
 
-    const [workout, setWorkout] = useState(workoutData)
+    const [workout, setWorkout] = useState({
+        sets: [],
+        startTime: null,
+        id: null,
+        type: null
+    })
+    
     const [started, setStarted] = useState(false)
 
     useEffect(() => {
-        setWorkout(
-            {
-                ...workoutData
-            }
-        )
-    }, [workoutData])
+        workoutService
+                    .getNext()
+                    .then(response => {
+                        setWorkout({
+                            sets: response.sets,
+                            startTime: response.date,
+                            id: response.id,
+                            type: response.type
+                        })
+                    })
+                    .catch(
+                        error => console.log('Workouttien lataaminen meni vituiksi', error.response)
+                    )
+    }, [])
 
     const handleClick = (id) => {
         const updatedSets = workout.sets

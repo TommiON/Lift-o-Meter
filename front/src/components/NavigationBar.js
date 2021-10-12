@@ -28,7 +28,7 @@ const NavigationBar = ( {logoutFunction, loggedIn } ) => {
                         Aiemmat
                     </Nav.Link>
                     <Nav.Link as={Link} to="/profile" >
-                        Profiili
+                        Kehitys
                     </Nav.Link>
                     <Nav.Link as={Link} to="/logout" onClick={logoutFunction}>
                         Kirjaudu ulos

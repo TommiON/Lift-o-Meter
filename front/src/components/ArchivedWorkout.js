@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import SpinnerIndicator from './SpinnerIndicator'
 import { FindUniqueEntries, GetPlainName } from '../services/WorkoutHelpers'
+import { FormatDateString } from '../services/FormatDateString'
 
 const ArchivedWorkout = ( {workoutData} ) => {
 
@@ -91,7 +92,7 @@ const ArchivedWorkout = ( {workoutData} ) => {
 
     return(
         <div>
-            <h6>{workoutPresentation.date}</h6>
+            <h6>{FormatDateString(workoutPresentation.date)}</h6>
             <p>{workoutPresentation.move1.movename} {workoutPresentation.move1.weight} kg, {workoutPresentation.move1.failed ? 'FAILURE' : ''}</p>
             <p>{workoutPresentation.move2.movename} {workoutPresentation.move2.weight} kg, {workoutPresentation.move2.failed ? 'FAILURE' : ''}</p>
             <p>{workoutPresentation.move3.movename} {workoutPresentation.move3.weight} kg, {workoutPresentation.move3.failed ? 'FAILURE' : ''}</p>

@@ -20,12 +20,7 @@ import { Button, Spinner } from 'react-bootstrap'
 function App() {
   
   const [loggedUser, setLoggedUser] = useState(null)
-  const [workout, setWorkout] = useState({
-    sets: [],
-    startTime: null,
-    id: null,
-    type: null
-  })
+  
   const [notification, setNotification] = useState({
     message: '',
     error: false
@@ -57,20 +52,7 @@ function App() {
                 window.localStorage.setItem('username', response.data.username)
                 window.localStorage.setItem('accessToken', response.data.accessToken)
                 setLoggedUser(response.data.username)
-                WorkoutService
-                    .getNext()
-                    .then(response => {
-                        setWorkout({
-                            sets: response.sets,
-                            startTime: response.date,
-                            id: response.id,
-                            type: response.type
-                        })
-                    })
-                    .catch(
-                        error => console.log('Workouttien lataaminen meni vituiksi päätasolla', error.response)
-                    )
-              notify(`Tervetuloa, ${window.localStorage.getItem('username')}!`)
+                notify(`Tervetuloa, ${window.localStorage.getItem('username')}!`)
               })
             .catch(error => {
                 notify('Ongelma kirjautumisessa - väärä tunnus tai salasana?', true)
@@ -84,12 +66,6 @@ function App() {
                 window.localStorage.removeItem('username')
                 window.localStorage.removeItem('accessToken')
                 setLoggedUser(null)
-                setWorkout({
-                  sets: [],
-                  startTime: null,
-                  id: null,
-                  type: null
-                })
             })
             .catch(error => {
                 
@@ -107,7 +83,7 @@ function App() {
           </Route>
           <Route path="/next">
             {loggedUser ?
-                <Workout workoutData={workout} /> 
+                <Workout  /> 
                         : 
                 <LoginScreen loginFunction={login} visible={!loggedUser} />
             }
