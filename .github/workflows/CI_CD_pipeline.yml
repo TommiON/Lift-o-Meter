@@ -26,3 +26,9 @@ jobs:
       run: mvn clean install --file back/pom.xml
     - name: Maven tests
       run: mvn test --file back/pom.xml
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: get repo contents
+      uses: actions/checkout@v2
+    
