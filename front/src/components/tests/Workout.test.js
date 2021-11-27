@@ -7,5 +7,5 @@ test('Renders start text when launched with no data available', () => {
     
     const component = render(<Workout />)
 
-    expect(component.container).toHaveTextContent('aloita')
+    expect(component.container).toHaveTextContent('Loading...')
 })
