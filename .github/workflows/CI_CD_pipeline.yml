@@ -23,9 +23,13 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: Maven clean install
-      run: mvn clean install --file back/pom.xml
+      run: |
+        cd back
+        mvn clean install
     - name: Maven tests
-      run: mvn test --file back/pom.xml
+      run: |
+        cd back
+        mvn test
   Frontend:
     runs-on: ubuntu-latest
     steps:
@@ -36,5 +40,7 @@ jobs:
       with:
         node-version: '12.x'
     - name: npm install
-      run: npm install
+      run: |
+        cd front
+        npm install
     
