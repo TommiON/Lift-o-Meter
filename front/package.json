@@ -22,9 +22,6 @@
     "eject": "react-scripts eject",
     "server": "json-server -p3001 --watch src/mockData/mockDatabase.json"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
