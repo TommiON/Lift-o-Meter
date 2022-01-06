@@ -44,4 +44,8 @@ jobs:
       run: |
         cd front
         npm test -- --watchAll=false
+    - name: build
+      run: |
+        cd front
+        npm run build
     
