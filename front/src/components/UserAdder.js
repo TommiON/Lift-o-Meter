@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Form, Row, Col, Button } from 'react-bootstrap'
 
-import { StandardButton } from '../styles/Buttons'
-import { Input} from '../styles/styles'
+// import { StandardButton } from '../styles/Buttons'
+// import { Input} from '../styles/styles'
 import AuthService from '../services/AuthService'
 
 const UserAdder = ({ visible, notificationCallback }) => {

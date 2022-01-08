@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button} from "react-bootstrap"
+import React from 'react'
+import { Navbar, Nav } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 const NavigationBar = ( {logoutFunction, loggedIn } ) => {

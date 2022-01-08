@@ -18,11 +18,13 @@ const Userlist = () => {
             .then(setUsers(users.filter(u => u.id !== id)))  
     }
 
+    /*
     const addUser = (userdata) => {
         userService
             .postNew(userdata)
             .then(response => setUsers(users.concat(response.data)))
     }
+    */
 
     return(
         <div>

@@ -3,19 +3,19 @@ import './App.css'
 import { BrowserRouter, Switch, Route, Link, Redirect } from "react-router-dom"
 import Workout from './components/Workout'
 import ArchivedWorkouts from './components/ArchivedWorkouts'
-import Userlist from './components/Userlist'
+//import Userlist from './components/Userlist'
 import UserAdder from './components/UserAdder'
-import { Page, Navigation } from './styles/styles'
-import { StandardButton } from './styles/Buttons'
+//import { Page, Navigation } from './styles/styles'
+//import { StandardButton } from './styles/Buttons'
 import LoginScreen from './components/LoginScreen'
 import AccountDetails from './components/AccountDetails'
 import AuthService from './services/AuthService'
-import WorkoutService from './services/WorkoutService'
+//import WorkoutService from './services/WorkoutService'
 import Notification from './components/Notification'
 
 import Container from 'react-bootstrap/Container'
 import NavigationBar from './components/NavigationBar'
-import { Button, Spinner } from 'react-bootstrap'
+//import { Button, Spinner } from 'react-bootstrap'
 
 function App() {
   
